@@ -1,5 +1,7 @@
 # Entity Creator Assistant
 
+![image](https://user-images.githubusercontent.com/26523841/188024750-94270268-c470-4028-b94c-7f787957cd9e.png)
+
 This tool automates the creation of generic entity types in Dynatrace. It is a wrapper around the Generic Topology and Types feature.
 
 Given a JSON input, the tool will create those entity types and push an `entity.discovered` metric.
@@ -22,6 +24,8 @@ Apply changes: `python3 app.py --input input.json --environment https://abc123.l
 In this case, your list of cars would be available to see at `https://abc123.live.dynatrace.com/ui/entity/list/entity:car`
 
 ### Expected Output
+
+![image](https://user-images.githubusercontent.com/26523841/188024029-753a5d35-1f4a-4e42-8cde-97c441558adc.png)
 
 ```
 -- Step 1: Read Input File and Build Entities --

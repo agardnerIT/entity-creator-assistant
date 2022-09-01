@@ -1,0 +1,4 @@
+[{
+    "name": "car",
+    "attributes": [ "registration_number", "brand", "model", "colour", "tank_capacity", "hire_status" ]
+}]

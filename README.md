@@ -68,6 +68,29 @@ Pushing a custom metric which starts with `entity.car,carid=*` will automaticall
 
 > Important: If `attributes` are defined, they must be pushed with **every** metric. They cannot be left blank.
 
+The tool will print a sample curl request:
+
+Create the entity screens automatically:
+```
+curl -X POST "https://abc123.live.dynatrace.com/api/v2/metrics/ingest" \
+-H "accept: */*" \
+-H "Authorization: Api-Token dt0c01.*****" \
+-H "Content-Type: text/plain; charset=utf-8" \
+-d "entity.car.discovered,carid=1,registration_number=yourValue,brand=yourValue,model=yourValue,colour=yourValue,tank_capacity=yourValue,hire_status=yourValue 1"
+```
+
+Push any metric such as the amount of fuel remaining in the tank:
+```
+curl -X POST "https://abc123.live.dynatrace.com/api/v2/metrics/ingest" \
+-H "accept: */*" \
+-H "Authorization: Api-Token dt0c01.*****" \
+-H "Content-Type: text/plain; charset=utf-8" \
+-d "entity.car.fuel_level,carid=1,registration_number=yourValue,brand=yourValue,model=yourValue,colour=yourValue,tank_capacity=yourValue,hire_status=yourValue 1"
+```
+
+![image](https://user-images.githubusercontent.com/26523841/188027706-f48581db-7b73-484e-8229-4613079a7460.png)
+
+
 ## Idempotency
 
 This tool is idempotent. It is safe to run repeatedly (eg. in CI/CD pipelines).

@@ -66,7 +66,7 @@ The script automatically adds a dimension called `{entityType}id` in the above c
 
 Pushing a custom metric which starts with `entity.car,carid=*` will automatically create a `car` with an ID of `1`.
 
-> Important: If `attributes` are defined, they must be pushed with **every** metric. They cannot be left blank.
+> Important: If `attributes` are defined, they must be pushed with **every** metric. If left blank, the attribute will be removed.
 
 The tool will print a sample curl request:
 

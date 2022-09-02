@@ -123,6 +123,9 @@ Push an event targeting all Ford vehicles in your fleet because they need to be 
 curl -X POST "https://abc123.live.dynatrace.com/api/v2/events/ingest" -H "accept: application/json; charset=utf-8" -H "Authorization: Api-Token dt0c01.****" -H "Content-Type: application/json; charset=utf-8" -d "{\"eventType\":\"CUSTOM_ALERT\",\"title\":\"Ford recall notice\",\"timeout\":1,\"entitySelector\":\"type(entity:car),brand(Ford)\",\"properties\":{\"description\":\"Recall notice #445 for all Ford vehicles\",\"recall-notice\":\"https://example.com/recall/445\",\"recall-priority\":\"immediately\"}}"
 ```
 
+## Push Logs
+TODO...
+
 ## Idempotency
 
 This tool is idempotent. It is safe to run repeatedly (eg. in CI/CD pipelines).

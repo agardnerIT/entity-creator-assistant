@@ -90,6 +90,38 @@ curl -X POST "https://abc123.live.dynatrace.com/api/v2/metrics/ingest" \
 
 ![image](https://user-images.githubusercontent.com/26523841/188027706-f48581db-7b73-484e-8229-4613079a7460.png)
 
+## Push Events
+
+Use the `/api/v2/events` endpoint. You will need an API token with `events.ingest` permissions.
+
+Target your entity using either it's unique id or a property such as `registration_number` or `brand`. Note that attributes are case sensitive `brand != Brand`.
+
+You can push problem opening events, information events, deployment events or anything else that the `api/v2/events` endpoint supports.
+
+### Info Event to Signal a Car Hire is Overdue
+
+![image](https://user-images.githubusercontent.com/26523841/188032725-e2504081-3efa-4cec-8963-201afaa19ee3.png)
+
+This is just a sample, set the properties to whatever you need.
+
+```
+curl -X POST "https://abc123.live.dynatrace.com/api/v2/events/ingest" \
+-H "accept: application/json; charset=utf-8" \
+-H "Authorization: Api-Token dt0c01.****" \
+-H "Content-Type: application/json; charset=utf-8" \
+-d "{\"eventType\":\"CUSTOM_INFO\",\"title\":\"car is overdue\",\"timeout\":1,\"entitySelector\":\"type(entity:car),registration_number(ABC123)\",\"properties\":{\"is_overdue\":\"true\",\"driver\":\"Bob Smith\",\"last_location\":\"48.060457,1.262060\"}}"
+```
+
+## Problem Event to Signal all Fords need a Recall
+
+![image](https://user-images.githubusercontent.com/26523841/188035483-eb2b3cd4-abc2-43a3-9d4b-b590d2096f0b.png)
+![image](https://user-images.githubusercontent.com/26523841/188035259-9ffe9fd8-360f-416b-b131-e41b44a5bbb2.png)
+
+Push an event targeting all Ford vehicles in your fleet because they need to be recalled.
+
+```
+curl -X POST "https://abc123.live.dynatrace.com/api/v2/events/ingest" -H "accept: application/json; charset=utf-8" -H "Authorization: Api-Token dt0c01.****" -H "Content-Type: application/json; charset=utf-8" -d "{\"eventType\":\"CUSTOM_ALERT\",\"title\":\"Ford recall notice\",\"timeout\":1,\"entitySelector\":\"type(entity:car),brand(Ford)\",\"properties\":{\"description\":\"Recall notice #445 for all Ford vehicles\",\"recall-notice\":\"https://example.com/recall/445\",\"recall-priority\":\"immediately\"}}"
+```
 
 ## Idempotency
 

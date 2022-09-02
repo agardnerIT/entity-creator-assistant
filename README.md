@@ -85,7 +85,7 @@ curl -X POST "https://abc123.live.dynatrace.com/api/v2/metrics/ingest" \
 -H "accept: */*" \
 -H "Authorization: Api-Token dt0c01.*****" \
 -H "Content-Type: text/plain; charset=utf-8" \
--d "entity.car.fuel_level,carid=1,registration_number=yourValue,brand=yourValue,model=yourValue,colour=yourValue,tank_capacity=yourValue,hire_status=yourValue 1"
+-d "entity.car.fuel-level,carid=1,registration_number=yourValue,brand=yourValue,model=yourValue,colour=yourValue,tank_capacity=yourValue,hire_status=yourValue 1"
 ```
 
 ![image](https://user-images.githubusercontent.com/26523841/188027706-f48581db-7b73-484e-8229-4613079a7460.png)

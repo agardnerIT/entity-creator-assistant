@@ -124,7 +124,13 @@ curl -X POST "https://abc123.live.dynatrace.com/api/v2/events/ingest" -H "accept
 ```
 
 ## Push Logs
-TODO...
+Incoming log entries are automatically matched against the unique id (`carid`) so just push a log entry in containing the `carid`.
+
+For example:
+
+```
+curl -X POST https://YourEnvironmentActiveGate:9999/e/YourDTEnvironmentID/api/v2/logs/ingest -H "accept: application/json; charset=utf-8" -H "Authorization: Api-Token dt0c01.****" -d "{\"carid\": 1, \"status\": \"INFO\", \"content\": \"Your log entry here...\"}"
+```
 
 ## Idempotency
 

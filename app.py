@@ -183,7 +183,16 @@ def create_entity_types(entities, entity_names_to_create):
             "sourceType": "Metrics",
             "condition": f"$prefix(entity.{entity['name']})"
         }
+        # This doesn't need a condition
+        # All incoming logs will be matched against {entity['name']}id (eg. carid)
+        # So you just need to send the unique field in the log
+        # For example:
+        # { "carid": 1, "status": "INFO", "content": "log line entry here..." }
+        dt_entities_logs_entity_source = {
+            "sourceType": "Logs"
+        }
         dt_entity_sources.append(dt_entities_prefix_entity_source)
+        dt_entity_sources.append(dt_entities_logs_entity_source)
 
         # Build Attributes
         # Loop through the entity attributes and build objects

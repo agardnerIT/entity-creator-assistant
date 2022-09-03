@@ -124,7 +124,7 @@ curl -X POST "https://abc123.live.dynatrace.com/api/v2/events/ingest" -H "accept
 ```
 
 ## Push Logs
-Incoming log entries are automatically matched against the unique id (`carid`) so just push a log entry in containing the `carid`.
+Incoming log entries are automatically matched against the unique id (eg. `carid`) so just push a log entry in containing the `carid`.
 
 For example:
 

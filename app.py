@@ -68,18 +68,18 @@ def main():
             count = 0
             print("Your entity type(s) have been created:")
             print('')
-            print('Get the entity type:')
+            print('Get the entity type(s):')
             print(f'curl -X GET "{environment}/api/v2/settings/objects?schemaIds=builtin%3Amonitoredentities.generic.type&scopes=environment&fields=objectId%2Cvalue" -H "accept: application/json; charset=utf-8" -H "Authorization: Api-Token {token}"')
             print('')
 
             for entity in dt_entities: # This section simply builds helpful prebuild curl commands for you to use.
                 count += 1
                 
-                print('-------------------------------------------------')
-                print(f"Outputting entity type: {entity['value']['displayName']}")
-                
-                print("Try pushing some metrics (this will also create the entities):")
+                print('=====================================================================')
+                print(f"View {entity['value']['displayName']} entities:")
+                print(f"{environment}/ui/entity/list/{entity['value']['name']}")
                 print('')
+                print("Try pushing some metrics (this will also create the entities):")
             
                 curl_body = f"entity.{entity['value']['displayName']}.discovered,{entity['value']['displayName']}id={count}" # Use displayName not name as name is 'entity:sodacan' and displayName is what we need: 'sodacan'
 
@@ -92,8 +92,6 @@ def main():
                 
                 print(f'curl -X POST "{environment}/api/v2/metrics/ingest" -H "accept: */*" -H "Authorization: Api-Token {token}" -H "Content-Type: text/plain; charset=utf-8" -d "{curl_body}"')
                 print('')
-                print(f"View {entity['value']['displayName']} entities:")
-                print(f"{environment}/ui/entity/list/{entity['value']['name']}")
         else:
             print('-------------------------------------------------')
             print("Error creating entities.")
@@ -199,35 +197,34 @@ def create_entity_types(entities, entity_names_to_create):
         # The add objects to 
     
         dt_entity_attributes = []
-        for entity in entities:
-            for attribute in entity['attributes']:
-
-                dt_entity_attribute = {
-                    "key": attribute,
-                    "displayName": attribute,
-                    "pattern": "{" + attribute + "}"
-                }
-                dt_entity_attributes.append(dt_entity_attribute)
-
-            # Build Required dimension (pulled from the attributes)
-            dt_required_entity_dimension = {
-                "key": f"{entity['name']}id"
+        #for entity in entities:
+        for attribute in entity['attributes']:
+            dt_entity_attribute = {
+                "key": attribute,
+                "displayName": attribute,
+                "pattern": "{" + attribute + "}"
             }
+            dt_entity_attributes.append(dt_entity_attribute)
 
-            # Build Required Attributes List
-            dt_entity_required_attributes = []
-            dt_entity_required_attributes.append(dt_required_entity_dimension)
+        # Build Required dimension (pulled from the attributes)
+        dt_required_entity_dimension = {
+            "key": f"{entity['name']}id"
+        }
 
-            # Build Rules
-            dt_entity_rules = []
-            entity_name = f"{entity['name']}id" 
-            dt_entity_rule = {
-                "idPattern": "{" + entity_name + "}", # eg. {sodacanid}
-                "instanceNamePattern": "{" + entity_name + "}", # eg. {sodacanid}
-                "sources": dt_entity_sources,
-                "attributes": dt_entity_attributes
-            }
-            dt_entity_rules.append(dt_entity_rule)
+        # Build Required Attributes List
+        dt_entity_required_attributes = []
+        dt_entity_required_attributes.append(dt_required_entity_dimension)
+
+        # Build Rules
+        dt_entity_rules = []
+        entity_name = f"{entity['name']}id" 
+        dt_entity_rule = {
+            "idPattern": "{" + entity_name + "}", # eg. {sodacanid}
+            "instanceNamePattern": "{" + entity_name + "}", # eg. {sodacanid}
+            "sources": dt_entity_sources,
+            "attributes": dt_entity_attributes
+        }
+        dt_entity_rules.append(dt_entity_rule)
 
         # Attach rules to entity
         dt_entity['value']['rules'] = dt_entity_rules

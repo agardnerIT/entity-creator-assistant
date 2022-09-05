@@ -8,8 +8,8 @@ Given a JSON input, the tool will create those entity types and push an `entity.
 
 ## Usage
 
-Create an API token with `settings.read`, `settings.write` and `metrics.ingest` permissions.
-
+1. Create an API token with `settings.read`, `settings.write` and `metrics.ingest` permissions.
+2. Create a JSON array containing one or more new entities (sample below).
 ```
 [{
     "name": "car",

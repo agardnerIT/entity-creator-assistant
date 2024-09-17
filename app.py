@@ -8,9 +8,9 @@ import requests
 #
 # pip3 install requests
 # Dry Run (No changes persisted)
-# python3 app.py --input input.json --environment https://abc123.live.dynatrace.com --token dtc01.*** --dry-run
+# python3 app.py --input input.json --environment https://abc12345.live.dynatrace.com --token dtc01.*** --dry-run
 # Real Run
-# python3 app.py --input input.json --environment https://abc123.live.dynatrace.com --token dtc01.***
+# python3 app.py --input input.json --environment https://abc12345.live.dynatrace.com --token dtc01.***
 
 PARSER = argparse.ArgumentParser()
 DRY_RUN = False
@@ -25,7 +25,7 @@ def main():
     # Process incoming arguments
     PARSER.add_argument('--d','--dry-run',action='store_true') # action='store_true' is the magic that makes --d and --dry-run usable without any argument values
     PARSER.add_argument('--i','--input', help='Specify your input.json file. Defaults to input.json in the local folder.',default='input.json')
-    PARSER.add_argument('--e','--environment', help='Dynatrace Environment URL: https://abc123.live.dynatrace.com',required=True)
+    PARSER.add_argument('--e','--environment', help='Dynatrace Environment URL: https://abc12345.live.dynatrace.com',required=True)
     PARSER.add_argument('--t','--token', help='Dynatrace API Token. dtc01.***', required=True)
 
     args = PARSER.parse_args()
